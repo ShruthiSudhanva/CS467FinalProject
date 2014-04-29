@@ -84,7 +84,7 @@ function zoom(d) {
       .attr("height", function(d) { if((ky * d.dy - 1)>0)
                                         return ky * d.dy - 1; 
                                       else
-                                        return 0;} })
+                                        return 0;});
 
   t.select("text")
       .attr("x", function(d) { return kx * d.dx / 2; })
