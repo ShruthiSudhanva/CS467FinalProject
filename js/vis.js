@@ -11,7 +11,7 @@ var treemap = d3.layout.treemap()
     .round(false)
     .size([w, h])
     .sticky(true)
-    .value(function(d) { return d.size; });
+    .value(function(d) { return d.count; });
 
 var svg = d3.select("#visualization").append("div")
     .attr("class", "chart")
@@ -38,8 +38,13 @@ d3.json("data/data.json", function(data) {
 
   cell.append("svg:rect")
       .attr("width", function(d) { return d.dx - 1; })
-      .attr("height", function(d) { return d.dy - 1; })
-      .style("fill", function(d) { return color(d.parent.name); });
+      .attr("height", function(d) { if((d.dy - 1) > 0.0) 
+                                        return d.dy - 1;
+                                    else
+                                        return 0;; })
+      .style("fill", function(d) { return color(d.parent.name); })
+      .append("svg:title")
+      .text(function(d) { return d.parent.name; });
 
   cell.append("svg:text")
       .attr("x", function(d) { return d.dx / 2; })
@@ -52,17 +57,17 @@ d3.json("data/data.json", function(data) {
   d3.select(window).on("click", function() { zoom(root); });
 
   d3.select("select").on("change", function() {
-    treemap.value(this.value == "size" ? size : count).nodes(root);
+    treemap.value(this.value == "size" ? count : price).nodes(root);
     zoom(node);
   });
 });
 
-function size(d) {
-  return d.size;
+function price(d) {
+  return d.price;
 }
 
 function count(d) {
-  return 1;
+  return d.count;
 }
 
 function zoom(d) {
@@ -76,7 +81,10 @@ function zoom(d) {
 
   t.select("rect")
       .attr("width", function(d) { return kx * d.dx - 1; })
-      .attr("height", function(d) { return ky * d.dy - 1; })
+      .attr("height", function(d) { if((ky * d.dy - 1)>0)
+                                        return ky * d.dy - 1; 
+                                      else
+                                        return 0;} })
 
   t.select("text")
       .attr("x", function(d) { return kx * d.dx / 2; })
