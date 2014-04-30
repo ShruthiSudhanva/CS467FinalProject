@@ -1,41 +1,67 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-    <script type="text/javascript" src="js/d3.js"></script>
-    <script type="text/javascript" src="js/d3.layout.js"></script>
-    <style type="text/css">
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-.chart {
-  display: block;
-  margin: auto;
-  margin-top: 40px;
-}
+  <title>Showrooming</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-text {
-  font-size: 11px;
-}
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-rect {
-  fill: none;
-}
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- end CSS-->
 
-    </style>
-  </head>
-  <body>
-    <div id="visualization">
-    </div>
-    <div id="body">
-      <div id="footer">
-        d3.layout.treemap
-        <div class="hint">click or option-click to descend or ascend</div>
-        <div><select>
-          <option value="size">Size</option>
-          <option value="count">Count</option>
-        </select></div>
+  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+</head>
+
+<body>
+
+  <div id="container" class="container-fluid">
+    <div id="main" role="main">
+      <div id="view_selection" class="btn-group">
+        <a href="#" id="all" class="btn active">All</a>
+        <a href="#" id="category" class="btn">By Category</a>
+		<a href="#" id="type" class="btn">By Type</a>
+		<a href="#" id="user" class="btn">By User</a>
       </div>
+      <div id="vis"></div>
     </div>
-    <script type="text/javascript" src="js/vis.js"></script>
-  </body>
+  </div>
+
+
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> -->
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/script.js"></script>
+  <script src="js/CustomTooltip.js"></script>
+  <script src="js/libs/d3.min.js"></script>
+  <script src="js/libs/d3.csv.min.js"></script>
+  <script src="js/libs/d3.layout.min.js"></script>
+  <script src="js/libs/d3.geom.min.js"></script>
+  <script defer src="js/viz.js"></script>
+  <script type="text/javascript">
+		d3.csv("data/showrooming.csv", function(data) {
+			custom_bubble_chart.init(data);
+			custom_bubble_chart.toggle_view('all');
+		});
+        $(document).ready(function() {
+          $('#view_selection a').click(function() {
+            var view_type = $(this).attr('id');
+            $('#view_selection a').removeClass('active');
+            $(this).toggleClass('active');
+            custom_bubble_chart.toggle_view(view_type);
+            return false;
+          });
+        });
+  </script>
+</body>
 </html>
