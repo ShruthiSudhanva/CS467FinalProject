@@ -8,7 +8,7 @@ var svg = dimple.newSvg("#timeline", 3000, 600);
         var x = myChart.addCategoryAxis("x", "Date");
         x.addOrderRule("Date");
         var y = myChart.addCategoryAxis("y", "Username");
-        myChart.addMeasureAxis("z", "Price");
+        myChart.addPctAxis("z", "Price","Price");
         myChart.addSeries("Category", dimple.plot.bubble);
         myChart.addLegend(140, 10, 360, 20, "right");
         myChart.draw();

@@ -11,26 +11,36 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
 
   <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script type="text/javascript" src="js/d3.layout.js"></script>
   <link rel="stylesheet" href="css/style.css">
   <!-- end CSS-->
 
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
+  <style>
+  </style>
 </head>
 
 <body>
 
   <div id="container" class="container-fluid">
+    <div class="row">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="time.html">Timeline</a></li>
+        <li><a href="#">Messages</a></li>
+      </ul>
+    </div>
     <div id="main" role="main">
       <div id="view_selection" class="btn-group">
         <a href="#" id="all" class="btn active">All</a>
         <a href="#" id="category" class="btn">By Category</a>
-		<a href="#" id="type" class="btn">By Type</a>
-		<a href="#" id="user" class="btn">By User</a>
+		    <a href="#" id="type" class="btn">By Type</a>
+		    <a href="#" id="user" class="btn">By User</a>
       </div>
       <div id="vis"></div>
     </div>
